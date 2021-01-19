@@ -20,15 +20,43 @@ def digits_to_words(input_string):
             ex - 'one nine one zero four'
 
         Examples:
-            >>> import text_processing2 as tp2
-            >>> digits_str1 = "Zip Code: 19104"
-            >>> tp2.digits_to_words(digits_str1)
+            # >>> import text_processing2 as tp2
+            # >>> digits_str1 = "Zip Code: 19104"
+            # >>> tp2.digits_to_words(digits_str1)
             'one nine one zero four'
-            >>> digits_str2 = "Pi is 3.1415..."
-            >>> tp2.digits_to_words(digits_str2)
+            # >>> digits_str2 = "Pi is 3.1415..."
+            # >>> tp2.digits_to_words(digits_str2)
             'three one four one five'
     """
-    digit_string = None
+    digit_string = []
+    for i in range(len(input_string)):
+        try:
+            # input_string의 문자열 i가 int으로 변환이 가능하면, 숫자를 영어 단어로 변경
+            # input_string의 문자열 i가 int으로 변환이 불가능하면, continue
+            if int(input_string[i]) == 0:
+                digit_string.append("zero")
+            elif int(input_string[i]) == 1:
+                digit_string.append("one")
+            elif int(input_string[i]) == 2:
+                digit_string.append("two")
+            elif int(input_string[i]) == 3:
+                digit_string.append("three")
+            elif int(input_string[i]) == 4:
+                digit_string.append("four")
+            elif int(input_string[i]) == 5:
+                digit_string.append("five")
+            elif int(input_string[i]) == 6:
+                digit_string.append("six")
+            elif int(input_string[i]) == 7:
+                digit_string.append("seven")
+            elif int(input_string[i]) == 8:
+                digit_string.append("eight")
+            elif int(input_string[i]) == 9:
+                digit_string.append("nine")
+        except:
+            continue
+    # join()으로 리스트의 원소 사이사이에 띄어쓰기를 추가하며 문자열로 변환
+    digit_string = " ".join(digit_string)
     return digit_string
 
 
@@ -53,16 +81,28 @@ def to_camel_case(underscore_str):
             camelcase_str (string): camelcase를 따른 스트링
 
         Examples:
-            >>> import text_processing2 as tp2
-            >>> underscore_str1 = "to_camel_case"
-            >>> tp2.to_camel_case(underscore_str1)
+            # >>> import text_processing2 as tp2
+            # >>> underscore_str1 = "to_camel_case"
+            # >>> tp2.to_camel_case(underscore_str1)
             "toCamelCase"
-            >>> underscore_str2 = "__EXAMPLE__NAME__"
-            >>> tp2.to_camel_case(underscore_str2)
+            # >>> underscore_str2 = "__EXAMPLE__NAME__"
+            # >>> tp2.to_camel_case(underscore_str2)
             "exampleName"
-            >>> underscore_str3 = "alreadyCamel"
-            >>> tp2.to_camel_case(underscore_str3)
+            # >>> underscore_str3 = "alreadyCamel"
+            # >>> tp2.to_camel_case(underscore_str3)
             "alreadyCamel"
     """
-    camelcase_str = None
+    if "_" not in underscore_str:
+        # underscore_str에 _가 없는 경우, 그대로 return
+        return underscore_str
+    underscore_str = underscore_str.replace("_", " ") # _를 공백으로 변환
+    underscore_str = underscore_str.split() # 공백을 기준으로 문자열을 분리
+    camelcase_str = ""
+    for i in range(len(underscore_str)):
+        if i == 0:
+            # underscore_str의 첫번째 문자열인 경우, 모두 소문자
+            camelcase_str += underscore_str[i].lower()
+        else:
+            # underscore_str의 첫번째 문자열이 아닌 경우, 첫 문자만 대문자 그리고 나머지 문자는 소문자
+            camelcase_str += underscore_str[i][0].upper() + underscore_str[i][1:].lower()
     return camelcase_str
