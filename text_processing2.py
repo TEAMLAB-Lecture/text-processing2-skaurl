@@ -92,6 +92,9 @@ def to_camel_case(underscore_str):
             # >>> tp2.to_camel_case(underscore_str3)
             "alreadyCamel"
     """
+    if "_" not in underscore_str:
+        # underscore_str에 _가 없는 경우, 그대로 return
+        return underscore_str
     underscore_str = underscore_str.replace("_", " ") # _를 공백으로 변환
     underscore_str = underscore_str.split() # 공백을 기준으로 문자열을 분리
     camelcase_str = ""
